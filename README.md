@@ -122,7 +122,6 @@ Issues:
 
 - Projects
 - Issues
-- DataTable (implemented from previous project)
 
 ---
 
