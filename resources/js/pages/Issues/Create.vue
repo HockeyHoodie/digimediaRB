@@ -98,7 +98,7 @@ const handleSubmit = () => {
                     </div>
                 </div>
                 <div class="flex justify-end p-4">
-                    <Button type="submit">Create Project</Button>
+                    <Button type="submit">Create Issue</Button>
                 </div>
             </form>
         </div>
