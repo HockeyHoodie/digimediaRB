@@ -10,7 +10,7 @@ import projectRoutes from '@/routes/projects';
 
 interface Project {
     id: number;
-    name: string;
+    title: string;
     description: string;
 }
 
@@ -24,8 +24,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const form = useForm({
-    title: '',
-    description: '',
+    title: props.project.title,
+    description: props.project.description,
 });
 
 const handleSubmit = () => {
@@ -64,7 +64,7 @@ const handleDelete = () =>
                     <Input id="project-description" v-model="form.description" type="text" placeholder="Write a short description..."></Input>
                     <div class='text-sm text-red-600' v-if="form.errors.description">{{ form.errors.description }}</div>
                 </div>
-                <div class="flex justify-end p-4">
+                <div class="flex justify-end gap-4 p-4">
                     <Button type="submit">Save Changes</Button>
                     <Button type="button" variant="destructive" @click="handleDelete">Delete Project</Button>
                     </div>
