@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
@@ -9,9 +10,13 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        return response()->json(
-            Project::with('issues')->get()
-        );
+        $projects = Project::latest()->get();
+        return Inertia::render('Projects/Index',compact('projects'));
+    }
+
+    public function create()
+    {
+        return Inertia::render('Projects/Create', []);
     }
 
     public function store(Request $request)
@@ -21,36 +26,35 @@ class ProjectController extends Controller
             'description' => 'nullable|string'
         ]);
 
-        $project = Project::create($validated);
+        Project::create($validated);
 
-        return response()->json($project, 201);
+        return redirect()->route('projects.index')->with('message', 'Project created!');
     }
 
-    public function show(Project $project)
+    public function edit(Project $project)
     {
-        return response()->json(
-            $project->load('issues')
-        );
+        return Inertia::render('Projects/Edit', compact('project'));
     }
 
     public function update(Request $request, Project $project)
     {
-        $validated = $request->validate([
-            'name' => 'required|min:5|max:255',
+        $request->validate([
+            'title' => 'required|string|max:255',
             'description' => 'nullable|string'
         ]);
 
-        $project->update($validated);
+        $project->update([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+        ]);
 
-        return response()->json($project);
+        return redirect()->route('projects.index')->with('message', 'Project updated!');
     }
 
     public function destroy(Project $project)
     {
         $project->delete();
 
-        return response()->json([
-            'message' => 'Project deleted'
-        ]);
+        return redirect()->route('projects.index')->with('message', 'Project deleted!');
     }
 }
