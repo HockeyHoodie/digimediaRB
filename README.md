@@ -36,12 +36,16 @@ Create a small CRUD prototype for “projects” and “issues”. You may use p
 - Docker
 
 ---
+
 ### Requirements
+
 - Docker
 - Docker Compose
 - Composer
 - Node.js
+
 ---
+
 ### Setup
 
 ```
@@ -53,13 +57,13 @@ cp .env.example .env
 
 composer install
 
+npm install
+
 ./vendor/bin/sail up -d
 
 ./vendor/bin/sail artisan key:generate
 
-./vendor/bin/sail artisan migrate
-
-npm install
+./vendor/bin/sail artisan migrate:fresh --seed
 
 npm run dev
 ```
@@ -88,6 +92,19 @@ Run database migrations:
 
 The site will be accessible at  [http://localhost](http://localhost)
 
+---
+
+### Authentication
+
+Authentication can be performed with a test user (usable only by using --seed upon running database migration):
+
+```txt
+Email: test@example.com
+Password: password
+```
+
+---
+
 ### Database structure
 
 Projects:
@@ -96,7 +113,7 @@ Projects:
 | Column      | Type      |
 | ----------- | --------- |
 | id          | bigint    |
-| name        | string    |
+| title       | string    |
 | description | text      |
 | created_at  | timestamp |
 | updated_at  | timestamp |
@@ -131,7 +148,7 @@ Validation is implemented using Laravel request validation.
 
 Examples:
 
-- Project name is required
+- Project title is required
 - Issue title must be at least 5 characters
 - Issue status must be one of:
   - open
@@ -142,8 +159,8 @@ Examples:
 ---
 
 ### ORM/Security
-Laravel Eloquent ORM is used for database interaction, which internally uses prepared statements and protects against SQL injection.
----
+
+## Laravel Eloquent ORM is used for database interaction, which internally uses prepared statements and protects against SQL injection.
 
 ### API routes
 
@@ -170,4 +187,19 @@ Laravel Eloquent ORM is used for database interaction, which internally uses pre
 - Add filtering and searching for issues and projects.
 
 ---
+
 ### Screenshots
+
+#### Login Page
+
+![Login Page](screenshots/login.png)
+
+#### Projects Pages
+![Projects Page](screenshots/projects.png)
+![Create Project Page](screenshots/create_project.png)
+![Edit Project Page](screenshots/edit_project.png)
+
+#### Issues Pages
+![Issues Page](screenshots/issues.png)
+![Create Issue Page](screenshots/create_issue.png)
+![Edit Issue Page](screenshots/edit_issue.png)
