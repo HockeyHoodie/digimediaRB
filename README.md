@@ -160,7 +160,7 @@ Examples:
 
 ### ORM/Security
 
-## Laravel Eloquent ORM is used for database interaction, which internally uses prepared statements and protects against SQL injection.
+Laravel Eloquent ORM is used for database interaction, which internally uses prepared statements and protects against SQL injection.
 
 ### API routes
 
