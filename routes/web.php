@@ -10,6 +10,8 @@ Route::get('/dashboard', [ProjectController::class, 'dashboard'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+Route::get('/projects/{project}/issues', [ProjectController::class, 'issues'])->name('projects.issues');
+
 Route::resource('projects', ProjectController::class);
 Route::resource('issues', IssueController::class);
 

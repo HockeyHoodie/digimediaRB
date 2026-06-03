@@ -69,7 +69,7 @@ const formatDate = (dateString: string | number | Date) => {
                                     Edit
                                 </Button>
                     </Link>
-                    <Link :href="projectRoutes.edit(project.id)">
+                    <Link :href="projectRoutes.issues(project.id)">
                                 <Button variant="outline" size="sm">
                                     View Issues
                                 </Button>

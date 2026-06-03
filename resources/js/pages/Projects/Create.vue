@@ -1,19 +1,21 @@
 <script setup lang="ts">
 import { Input } from '@/components/ui/input';
 import Label from '@/components/ui/label/Label.vue';
-import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import { Button } from '@/components/ui/button';  
 import { useForm } from '@inertiajs/vue3';
 import projectRoutes from '@/routes/projects';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Create a Project',
-        href: '/projects/create',
+defineOptions({
+    layout: {
+        breadcrumbs: [
+            {
+                title: 'Create a Project',
+                href: projectRoutes.create(),
+            },
+        ],
     },
-];
+});
 
 const form = useForm({
     title: '',
@@ -28,8 +30,7 @@ const handleSubmit = () => {
 <template>
     <Head title="Create Project" />
 
-    <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="w-8/12 space-y-4">
+    <div class="w-8/12 space-y-4">
             <form @submit.prevent="handleSubmit">
                 <div class="flex flex-col gap-4 p-4">
                     <Label for="project-title">Project Title</Label>
@@ -52,6 +53,5 @@ const handleSubmit = () => {
                     <Button type="submit">Create Project</Button>
                     </div>
             </form>
-        </div>
-    </AppLayout>
+    </div>
 </template>

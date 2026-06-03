@@ -1,19 +1,21 @@
 <script setup lang="ts">
 import { Input } from '@/components/ui/input';
 import Label from '@/components/ui/label/Label.vue';
-import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import { Button } from '@/components/ui/button';
 import { useForm } from '@inertiajs/vue3';
 import issueRoutes from '@/routes/issues';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Create an Issue',
-        href: '/projects/create',
+defineOptions({
+    layout: {
+        breadcrumbs: [
+            {
+                title: 'Create an Issue',
+                href: issueRoutes.create(),
+            },
+        ],
     },
-];
+});
 
 defineProps<{
     projects: {
@@ -38,8 +40,7 @@ const handleSubmit = () => {
 
     <Head title="Create Issue" />
 
-    <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="w-8/12 space-y-4">
+    <div class="w-8/12 space-y-4">
             <form @submit.prevent="handleSubmit">
                 <div class="flex flex-col gap-4 p-4">
                     <Label for="issue-title">Issue Title</Label>
@@ -101,6 +102,5 @@ const handleSubmit = () => {
                     <Button type="submit">Create Issue</Button>
                 </div>
             </form>
-        </div>
-    </AppLayout>
+    </div>
 </template>

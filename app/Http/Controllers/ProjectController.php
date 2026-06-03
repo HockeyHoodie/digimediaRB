@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use App\Models\Project;
+use App\Models\Issue;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -56,5 +57,33 @@ class ProjectController extends Controller
         $project->delete();
 
         return redirect()->route('projects.index')->with('message', 'Project deleted!');
+    }
+
+    public function dashboard()
+    {
+        $projects = Project::latest()->get();
+
+    return Inertia::render('Dashboard', [
+        'projects' => $projects,
+    ]);
+    }
+
+    public function issues(Project $project)
+    {
+        $project->load('issues');
+
+        return Inertia::render('Projects/Issues', [
+            'project' => $project,
+            'breadcrumbs' => [
+                [
+                    'title' => 'Projects',
+                    'href' => route('projects.index'),
+                ],
+                [
+                    'title' => "Issues for: {$project->title}",
+                    'href' => route('projects.issues', $project),
+                ],
+            ],
+        ]);
     }
 }
